@@ -1,0 +1,21 @@
+Deepfake Detection Model Training Summary
+==================================================
+
+Model: deepfake_detector_dense
+Data directory: /Users/aniruddh/Documents/Deepfake_detection/data/processed
+Training samples: 1593
+Validation samples: 399
+Feature dimension: 1434
+Epochs: 50
+Batch size: 32
+Learning rate: 0.001
+
+Final Validation Metrics:
+  loss: 0.6095
+  compile_metrics: 0.6341
+
+Model parameters: 911,105
+
+Best epoch: 8
+Best validation loss: 0.6095
+Best validation accuracy: 0.6341

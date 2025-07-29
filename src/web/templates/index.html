@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="text-center mb-5">
+            <h1 class="display-4">🕵️ Real-Time Deepfake Detection</h1>
+            <p class="lead">Detect deepfakes in videos and real-time webcam streams using AI</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">📹 Upload Video</h5>
+                        <p class="card-text">Upload a video file to analyze for deepfake content</p>
+                        <a href="{{ url_for('upload_video') }}" class="btn btn-primary">Upload Video</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">📷 Live Detection</h5>
+                        <p class="card-text">Real-time deepfake detection using your webcam</p>
+                        <a href="{{ url_for('webcam_page') }}" class="btn btn-success">Start Webcam</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">🧠 How It Works</h5>
+                <ul>
+                    <li><strong>Face Detection:</strong> Uses MediaPipe to extract 3D face landmarks</li>
+                    <li><strong>Temporal Analysis:</strong> Analyzes sequences of frames using Conv1D CNN</li>
+                    <li><strong>Real-time Processing:</strong> Provides instant feedback on video streams</li>
+                    <li><strong>High Accuracy:</strong> Trained on landmark coordinate patterns</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

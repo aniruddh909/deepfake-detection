@@ -1,0 +1,116 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>📹 Upload Video for Analysis</h2>
+        
+        <div class="card">
+            <div class="card-body">
+                <form id="uploadForm" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="videoFile" class="form-label">Select Video File</label>
+                        <input type="file" class="form-control" id="videoFile" name="video" 
+                               accept=".mp4,.avi,.mov,.mkv,.webm" required>
+                        <div class="form-text">Supported formats: MP4, AVI, MOV, MKV, WEBM (Max: 16MB)</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" id="uploadBtn">
+                        <span class="spinner-border spinner-border-sm d-none" id="uploadSpinner"></span>
+                        Analyze Video
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <div id="results" class="mt-4" style="display: none;">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Analysis Results</h5>
+                </div>
+                <div class="card-body" id="resultsContent">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData();
+    const fileInput = document.getElementById('videoFile');
+    const uploadBtn = document.getElementById('uploadBtn');
+    const uploadSpinner = document.getElementById('uploadSpinner');
+    
+    if (!fileInput.files[0]) {
+        showAlert('Please select a video file', 'warning');
+        return;
+    }
+    
+    formData.append('video', fileInput.files[0]);
+    
+    // Show loading state
+    uploadBtn.disabled = true;
+    uploadSpinner.classList.remove('d-none');
+    
+    try {
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            displayResults(result);
+            showAlert('Video analysis completed!', 'success');
+        } else {
+            showAlert(result.error || 'Upload failed', 'danger');
+        }
+    } catch (error) {
+        showAlert('Error uploading file: ' + error.message, 'danger');
+    } finally {
+        uploadBtn.disabled = false;
+        uploadSpinner.classList.add('d-none');
+    }
+});
+
+function displayResults(result) {
+    const resultsDiv = document.getElementById('results');
+    const contentDiv = document.getElementById('resultsContent');
+    
+    const fakeProbability = (result.summary.fake_probability * 100).toFixed(1);
+    const avgPrediction = (result.summary.average_prediction * 100).toFixed(1);
+    
+    contentDiv.innerHTML = `
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Video Information</h6>
+                <ul class="list-unstyled">
+                    <li><strong>Duration:</strong> ${result.video_info.duration.toFixed(1)}s</li>
+                    <li><strong>FPS:</strong> ${result.video_info.fps.toFixed(1)}</li>
+                    <li><strong>Dimensions:</strong> ${result.video_info.width}x${result.video_info.height}</li>
+                    <li><strong>Total Frames:</strong> ${result.video_info.frame_count}</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h6>Detection Results</h6>
+                <ul class="list-unstyled">
+                    <li><strong>Frames Analyzed:</strong> ${result.frames_analyzed}</li>
+                    <li><strong>Face Detection Rate:</strong> ${(result.summary.face_detection_rate * 100).toFixed(1)}%</li>
+                    <li><strong>Average Prediction:</strong> ${avgPrediction}%</li>
+                    <li><strong>Fake Probability:</strong> <span class="badge ${fakeProbability > 50 ? 'bg-danger' : 'bg-success'}">${fakeProbability}%</span></li>
+                </ul>
+            </div>
+        </div>
+    `;
+    
+    resultsDiv.style.display = 'block';
+}
+</script>
+{% endblock %}

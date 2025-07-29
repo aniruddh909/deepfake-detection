@@ -1,0 +1,15 @@
+{
+  "model_name": "demo_model",
+  "model_type": "lightweight",
+  "created_at": 1753733254.723258,
+  "files": {
+    "model": "data/models/demo_model.h5",
+    "scaler": "data/models/demo_model_scaler.pkl",
+    "metrics": "data/models/demo_model_metrics.json",
+    "training_history": "data/models/plots/demo_model_training_history.png"
+  },
+  "test_metrics": {
+    "loss": 0.7217391133308411,
+    "compile_metrics": 0.5
+  }
+}

@@ -1,0 +1,112 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h2>📷 Real-Time Deepfake Detection</h2>
+        
+        <div class="video-container">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div id="videoPlaceholder" class="bg-light p-5 mb-3" style="display: block;">
+                        <h5>Click "Start Detection" to begin</h5>
+                        <p class="text-muted">Make sure your camera is connected and permissions are granted</p>
+                    </div>
+                    
+                    <img id="videoFeed" src="" style="display: none; width: 100%; max-width: 640px;" />
+                    
+                    <div class="mt-3">
+                        <button id="startBtn" class="btn btn-success">Start Detection</button>
+                        <button id="stopBtn" class="btn btn-danger" style="display: none;">Stop Detection</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detection-info">
+            <h6>Detection Information</h6>
+            <div class="row">
+                <div class="col-md-4">
+                    <small class="text-muted">Status:</small>
+                    <div id="status">Inactive</div>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted">Model:</small>
+                    <div id="modelStatus">Loading...</div>
+                </div>
+                <div class="col-md-4">
+                    <small class="text-muted">Instructions:</small>
+                    <div><small>Position your face in the camera view</small></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let isActive = false;
+
+document.getElementById('startBtn').addEventListener('click', startDetection);
+document.getElementById('stopBtn').addEventListener('click', stopDetection);
+
+async function startDetection() {
+    try {
+        const response = await fetch('/start_webcam');
+        const result = await response.json();
+        
+        if (result.status === 'started' || result.status === 'already_active') {
+            isActive = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('stopBtn').style.display = 'inline-block';
+            document.getElementById('videoPlaceholder').style.display = 'none';
+            document.getElementById('videoFeed').style.display = 'block';
+            document.getElementById('videoFeed').src = '/video_feed';
+            document.getElementById('status').textContent = 'Active';
+            
+            showAlert('Detection started!', 'success');
+        } else {
+            showAlert('Failed to start detection: ' + result.message, 'danger');
+        }
+    } catch (error) {
+        showAlert('Error starting detection: ' + error.message, 'danger');
+    }
+}
+
+async function stopDetection() {
+    try {
+        const response = await fetch('/stop_webcam');
+        const result = await response.json();
+        
+        isActive = false;
+        document.getElementById('startBtn').style.display = 'inline-block';
+        document.getElementById('stopBtn').style.display = 'none';
+        document.getElementById('videoPlaceholder').style.display = 'block';
+        document.getElementById('videoFeed').style.display = 'none';
+        document.getElementById('status').textContent = 'Inactive';
+        
+        showAlert('Detection stopped', 'info');
+    } catch (error) {
+        showAlert('Error stopping detection: ' + error.message, 'danger');
+    }
+}
+
+// Check application status
+async function checkStatus() {
+    try {
+        const response = await fetch('/api/status');
+        const status = await response.json();
+        
+        const modelStatus = status.model_loaded ? 'Loaded ✅' : 'Not loaded ❌';
+        document.getElementById('modelStatus').textContent = modelStatus;
+    } catch (error) {
+        document.getElementById('modelStatus').textContent = 'Error checking status';
+    }
+}
+
+// Check status on page load
+checkStatus();
+</script>
+{% endblock %}

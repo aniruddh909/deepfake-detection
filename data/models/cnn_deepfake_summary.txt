@@ -1,0 +1,17 @@
+CNN Deepfake Detection Model Summary
+===================================
+
+Model Type: hybrid
+Input Shape: (478, 3)
+Parameters: 1,143,169
+Training Samples: 1593
+Validation Samples: 399
+Epochs: 50
+Batch Size: 16
+Learning Rate: 0.001
+
+Final Results:
+Training Accuracy: 0.5901
+Validation Accuracy: 0.6341
+Training Loss: 0.6839
+Validation Loss: 0.6705

@@ -1,0 +1,16 @@
+Enhanced Deepfake Detection Model
+========================================
+Training Date: 2025-07-29 20:11:25
+Model Architecture: Enhanced Dense Neural Network
+Validation Accuracy: 0.6115 (61.15%)
+Best Epoch: 20
+Total Parameters: 2,195,329
+Features: 1452 (enhanced with geometric features)
+Normalization: MinMaxScaler
+Data Balancing: SMOTE
+
+Model Files:
+- Model: enhanced_deepfake_model_20250729_201124.h5
+- Scaler: scaler_20250729_201124.pkl
+- Latest Model: latest_model.h5
+- Latest Scaler: latest_scaler.pkl

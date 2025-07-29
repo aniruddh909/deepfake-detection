@@ -1,0 +1,29 @@
+Enhanced Deepfake Detection Model Training Summary v2
+============================================================
+
+Model: enhanced_deepfake_v2
+Data directory: /Users/aniruddh/Documents/Deepfake_detection/data/processed
+Training samples: 1670
+Validation samples: 399
+Enhanced feature dimension: 1452
+Feature improvement: +18 geometric features
+Epochs: 100
+Batch size: 8
+Learning rate: 0.0001
+
+Final Enhanced Validation Metrics:
+  loss: 0.6515
+  compile_metrics: 0.5965
+
+Model parameters: 920,321
+
+Best epoch: 74
+Best validation loss: 0.6515
+Best validation accuracy: 0.5965
+
+Enhancement Features Applied:
+  - Enhanced geometric feature extraction (+18 features)
+  - SMOTE data balancing
+  - Optimized learning rate and batch size
+  - Advanced early stopping and LR scheduling
+  - Model checkpointing
