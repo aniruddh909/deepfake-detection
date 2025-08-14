@@ -1,4 +1,4 @@
-# 🕵️ Real-Time Deepfake Detection System
+# 🕵 Real-Time Deepfake Detection System
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.10+-orange.svg)](https://tensorflow.org/)
@@ -6,16 +6,16 @@
 
 A comprehensive real-time deepfake detection system that uses facial landmark analysis and CNN-based deep learning to identify manipulated videos and live webcam feeds.
 
-## ✨ Features
+##  Features
 
-- 🔍 **Real-time Detection**: Live webcam analysis with instant results
-- 📹 **Video Processing**: Upload and analyze video files for deepfake content
-- 🤖 **Advanced AI**: CNN-based model with 61%+ accuracy using facial landmark patterns
-- 🌐 **Web Interface**: User-friendly Flask web application
-- ⚡ **High Performance**: Optimized for real-time processing with MediaPipe
-- 📊 **Detailed Analysis**: Confidence scores and frame-by-frame results
+-  **Real-time Detection**: Live webcam analysis with instant results
+-  **Video Processing**: Upload and analyze video files for deepfake content
+-  **Advanced AI**: CNN-based model with 61%+ accuracy using facial landmark patterns
+-  **Web Interface**: User-friendly Flask web application
+-  **High Performance**: Optimized for real-time processing with MediaPipe
+-  **Detailed Analysis**: Confidence scores and frame-by-frame results
 
-## 🏗️ Architecture
+##  Architecture
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
@@ -148,7 +148,7 @@ deepfake-detection/
 └── docs/               # Documentation
 ```
 
-## 🚧 Development
+##  Development
 
 ### Running Tests
 
@@ -168,22 +168,13 @@ python -m pytest tests/
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - **MediaPipe** team for facial landmark detection
 - **TensorFlow** for deep learning framework
 - Open-source deepfake detection research community
 
-## 📞 Support
-
-- 📖 Check the [QUICKSTART.md](QUICKSTART.md) for detailed setup
-- 🐛 Report bugs in [Issues](https://github.com/yourusername/deepfake-detection/issues)
-- 💬 Join our [Discussions](https://github.com/yourusername/deepfake-detection/discussions)
-
 ## ⚠️ Disclaimer
 
 This system is designed for research and educational purposes. For production use, additional security and performance optimizations may be required. Results may vary depending on video quality and deepfake sophistication.
 
----
-
-**Made with ❤️ for AI Safety and Digital Media Integrity**
